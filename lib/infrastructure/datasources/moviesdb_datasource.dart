@@ -1,9 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:cinemapedia/config/constants/environment.dart';
 import 'package:cinemapedia/config/constants/themoviesdb.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
-import 'package:dio/dio.dart';
 
-import '../domain/datasources/movies_datasource.dart';
+import '../../domain/datasources/movies_datasource.dart';
 
 class MoviedbDatasource extends MoviesDatasource {
   final dio = Dio(BaseOptions(baseUrl: TheMoviesDB.baseUrl, queryParameters: {
