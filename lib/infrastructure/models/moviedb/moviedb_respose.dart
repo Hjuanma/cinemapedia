@@ -15,11 +15,12 @@ class MovieDbResponse {
     required this.totalResults,
   });
 
-  factory MovieDbResponse.fromJson(Map<String, dynamic> json) => MovieDbResponse(
-        dates: json["dates"] ? Dates.fromJson(json["dates"]) : null,
+  factory MovieDbResponse.fromJson(Map<String, dynamic> json) =>
+      MovieDbResponse(
+        dates: json["dates"] != null ? Dates.fromJson(json["dates"]) : null,
         page: json["page"],
-        results:
-            List<MovieMovieDb>.from(json["results"].map((x) => MovieMovieDb.fromJson(x))),
+        results: List<MovieMovieDb>.from(
+            json["results"].map((x) => MovieMovieDb.fromJson(x))),
         totalPages: json["total_pages"],
         totalResults: json["total_results"],
       );
@@ -54,4 +55,3 @@ class Dates {
             "${minimum.year.toString().padLeft(4, '0')}-${minimum.month.toString().padLeft(2, '0')}-${minimum.day.toString().padLeft(2, '0')}",
       };
 }
-
