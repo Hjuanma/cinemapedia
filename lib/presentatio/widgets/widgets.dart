@@ -1,1 +1,2 @@
-export 'package:cinemapedia/presentatio/widgets/shared/custom_appbar.dart';
+export 'shared/custom_appbar.dart';
+export 'movies/movies_slideshow.dart';
