@@ -45,8 +45,9 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 355,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      height: 360,
       child: Column(
         children: [
           if (widget.title != null || widget.subTitle != null)
@@ -166,7 +167,7 @@ class _Titel extends StatelessWidget {
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context).textTheme.titleLarge;
     return Container(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 10, bottom: 5),
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         children: [
