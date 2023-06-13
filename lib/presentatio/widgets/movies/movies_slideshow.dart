@@ -28,6 +28,18 @@ class _SlideItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.only(bottom: 30,), child: Placeholder(),);
+    final decoration = BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(
+              color: Colors.black45, blurRadius: 10, offset: Offset(0, 10))
+        ]);
+
+    return Padding(
+      padding: const EdgeInsets.only(
+        bottom: 30,
+      ),
+      child: DecoratedBox(decoration: decoration, child: Placeholder()),
+    );
   }
 }
