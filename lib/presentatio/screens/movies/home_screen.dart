@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cinemapedia/presentatio/providers/Providerts.dart';
 import 'package:cinemapedia/presentatio/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeScreen extends StatelessWidget {
   static const name = "home-screen";
@@ -26,20 +27,26 @@ class _HomeView extends ConsumerStatefulWidget {
 
 class _HomeViewState extends ConsumerState<_HomeView> {
   @override
-  void initState() {
+  void initState(){
     super.initState();
 
     ref.read(nowPlayingProvider.notifier).loadNextPage();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     final nowPlayingMovies = ref.watch(nowPlayingProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
+
     return Column(
       children: [
         const CustomAppBar(),
         MoviesSlideshow(movies: slideShowMovies),
+        MoviesHorizontalListview(
+          movies: nowPlayingMovies,
+          title: "En cines",
+          subTitle: DateFormat("EEEE d").format(DateTime.now()),
+        )
       ],
     );
   }
