@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cinemapedia/presentatio/providers/Providerts.dart';
 import 'package:cinemapedia/presentatio/widgets/widgets.dart';
+
+import '../../../config/constants/constants.dart';
 
 class HomeScreen extends StatelessWidget {
   static const name = "home-screen";
@@ -45,7 +46,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
         MoviesHorizontalListview(
           movies: nowPlayingMovies,
           title: "En cines",
-          subTitle: DateFormat("EEEE d").format(DateTime.now()),
+          subTitle: HumanFormats.currentDay(),
         )
       ],
     );

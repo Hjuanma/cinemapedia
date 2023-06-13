@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import '../../../config/constants/constants.dart';
 import '../../../domain/entities/movie.dart';
 
 class MoviesHorizontalListview extends StatelessWidget {
@@ -52,7 +53,7 @@ class _Slide extends StatelessWidget {
     final textStyles = Theme.of(context).textTheme;
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         //* Image
         SizedBox(
@@ -96,27 +97,32 @@ class _Slide extends StatelessWidget {
             style: textStyles.titleSmall,
           ),
         ),
+        const Spacer(),
 
         //* Rating
-        Row(
-          children: [
-            Icon(
-              Icons.star_half_outlined,
-              color: Colors.yellow.shade800,
-            ),
-            const SizedBox(
-              width: 4,
-            ),
-            Text(
-              "${movie.voteAverage}",
-              style:
-                  textStyles.bodyMedium?.copyWith(color: Colors.yellow.shade800),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text("${movie.popularity}", style: textStyles.bodySmall,)
-          ],
+        SizedBox(
+          width: 150,
+          child: Row(
+            children: [
+              Icon(
+                Icons.star_half_outlined,
+                color: Colors.yellow.shade800,
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              Text(
+                "${movie.voteAverage}",
+                style: textStyles.bodyMedium
+                    ?.copyWith(color: Colors.yellow.shade800),
+              ),
+              const Spacer(),
+              Text(
+                HumanFormats.number(movie.popularity),
+                style: textStyles.bodySmall,
+              )
+            ],
+          ),
         )
       ]),
     );
