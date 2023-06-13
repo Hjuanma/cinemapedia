@@ -32,11 +32,18 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     super.initState();
 
     ref.read(nowPlayingProvider.notifier).loadNextPage();
+    ref.read(popularMoviesProvider.notifier).loadNextPage();
+
+    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+    ref.read(topRatedProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
     final nowPlayingMovies = ref.watch(nowPlayingProvider);
+    final popularMovies = ref.watch(popularMoviesProvider);
+    final topRatedMovies = ref.watch(topRatedProvider);
+    final upcomingMovies = ref.watch(upcomingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
 
     return CustomScrollView(slivers: [
@@ -57,23 +64,23 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                   ref.read(nowPlayingProvider.notifier).loadNextPage(),
             ),
             MoviesHorizontalListview(
-              movies: nowPlayingMovies,
+              movies: upcomingMovies,
               title: "Proximamente",
               subTitle: "Este mes",
               loadNextPage: () =>
-                  ref.read(nowPlayingProvider.notifier).loadNextPage(),
+                  ref.read(upcomingMoviesProvider.notifier).loadNextPage(),
             ),
             MoviesHorizontalListview(
-              movies: nowPlayingMovies,
+              movies: popularMovies,
               title: "Populares",
               loadNextPage: () =>
-                  ref.read(nowPlayingProvider.notifier).loadNextPage(),
+                  ref.read(popularMoviesProvider.notifier).loadNextPage(),
             ),
             MoviesHorizontalListview(
-              movies: nowPlayingMovies,
+              movies: topRatedMovies,
               title: "Mejor calificadas",
               loadNextPage: () =>
-                  ref.read(nowPlayingProvider.notifier).loadNextPage(),
+                  ref.read(topRatedProvider.notifier).loadNextPage(),
             ),
             const SizedBox(
               height: 10,
