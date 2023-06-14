@@ -71,7 +71,7 @@ final movieDBResponse = MovieDbResponse.fromJson(json);
 
         final movieDB = MovieDbDetails.fromJson(response.data);
 
-        final movie = MovieMapper();
+        final movie = MovieMapper.movieDbDetailsToEntity(movieDB);
 
         return movie;
   }
