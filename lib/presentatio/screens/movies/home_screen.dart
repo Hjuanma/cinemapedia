@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cinemapedia/presentatio/providers/Providerts.dart';
+import 'package:cinemapedia/presentatio/providers/providerts.dart';
 import 'package:cinemapedia/presentatio/widgets/widgets.dart';
 
 import '../../../config/constants/constants.dart';
@@ -40,13 +40,16 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final slideShowMovies = ref.watch(moviesSlideshowProvider);
+
     final nowPlayingMovies = ref.watch(nowPlayingProvider);
     final popularMovies = ref.watch(popularMoviesProvider);
     final topRatedMovies = ref.watch(topRatedProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
-    final slideShowMovies = ref.watch(moviesSlideshowProvider);
 
-    return CustomScrollView(slivers: [
+    return FullScreenLoader();
+
+    /*return CustomScrollView(slivers: [
       const SliverAppBar(
         floating: true,
         flexibleSpace: FlexibleSpaceBar(title: CustomAppBar()),
@@ -88,6 +91,6 @@ class _HomeViewState extends ConsumerState<_HomeView> {
           ],
         );
       }, childCount: 1))
-    ]);
+    ]);*/
   }
 }
