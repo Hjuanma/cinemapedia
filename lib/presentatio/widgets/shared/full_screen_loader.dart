@@ -11,7 +11,7 @@ class FullScreenLoader extends StatelessWidget {
       "Ya mero...",
       "Esto esta tardando mas de lo esperado :(",
     ];
-    return Stream.periodic(const Duration(milliseconds: 1200), (step) {
+    return Stream.periodic(const Duration(milliseconds: 1500), (step) {
       return messages[step];
     }).take(messages.length);
   }

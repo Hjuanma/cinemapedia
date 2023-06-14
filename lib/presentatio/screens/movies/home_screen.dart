@@ -40,6 +40,10 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final initialLoading = ref.watch(initialLoadingProvider);
+
+    if (initialLoading) return const FullScreenLoader();
+    
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
 
     final nowPlayingMovies = ref.watch(nowPlayingProvider);
@@ -47,9 +51,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final topRatedMovies = ref.watch(topRatedProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
 
-    return FullScreenLoader();
 
-    /*return CustomScrollView(slivers: [
+    return CustomScrollView(slivers: [
       const SliverAppBar(
         floating: true,
         flexibleSpace: FlexibleSpaceBar(title: CustomAppBar()),
@@ -91,6 +94,6 @@ class _HomeViewState extends ConsumerState<_HomeView> {
           ],
         );
       }, childCount: 1))
-    ]);*/
+    ]);
   }
 }
