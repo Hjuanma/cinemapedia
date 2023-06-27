@@ -10,10 +10,11 @@ typedef SearchMovieCallback = Future<List<Movie>> Function(String query);
 
 class SearMovieDelegate extends SearchDelegate<Movie?> {
   final SearchMovieCallback searcheMovies;
+  final List<Movie> initialMovies;
   StreamController<List<Movie>> debouncedMovies = StreamController.broadcast();
   Timer? _debounceTimer;
 
-  SearMovieDelegate({required this.searcheMovies});
+  SearMovieDelegate({required this.searcheMovies, required this.initialMovies});
 
   void _onQueryChange(String query) {
     if (_debounceTimer?.isActive ?? false) {
@@ -68,6 +69,7 @@ class SearMovieDelegate extends SearchDelegate<Movie?> {
   Widget buildSuggestions(BuildContext context) {
     _onQueryChange(query);
     return StreamBuilder(
+      initialData: initialMovies,
       stream: debouncedMovies.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         final movies = snapshot.data ?? [];

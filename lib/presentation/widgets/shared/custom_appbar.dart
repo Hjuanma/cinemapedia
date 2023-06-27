@@ -41,6 +41,7 @@ class CustomAppBar extends ConsumerWidget {
                           query: searcheQuery,
                           context: context,
                           delegate: SearMovieDelegate(
+                            initialMovies: searchedMovies,
                               searcheMovies: ref
                                   .read(searchedListProvider.notifier)
                                   .searchMovieByQuery))
