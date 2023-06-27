@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +10,18 @@ typedef SearchMovieCallback = Future<List<Movie>> Function(String query);
 
 class SearMovieDelegate extends SearchDelegate<Movie?> {
   final SearchMovieCallback searcheMovies;
+  StreamController<List<Movie>> debouncedMovies = StreamController.broadcast();
+  Timer? _debounceTimer;
 
   SearMovieDelegate({required this.searcheMovies});
+
+  void _onQueryChange(String query) {
+    if (_debounceTimer?.isActive ?? false) {
+      _debounceTimer!.cancel();
+    }
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () { });
+  }
 
   @override
   String? get searchFieldLabel => "Buscar pelicula";
@@ -39,14 +51,18 @@ class SearMovieDelegate extends SearchDelegate<Movie?> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return FutureBuilder(
-      future: searcheMovies(query),
+    return StreamBuilder(
+      stream: debouncedMovies.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
+        _onQueryChange(query);
         final movies = snapshot.data ?? [];
         return ListView.builder(
             itemCount: movies.length,
             itemBuilder: (context, index) {
-              return _MovieItem(movie: movies[index], onMovieSelected: close,);
+              return _MovieItem(
+                movie: movies[index],
+                onMovieSelected: close,
+              );
             });
       },
     );
@@ -73,23 +89,45 @@ class _MovieItem extends StatelessWidget {
               width: size.width * 0.2,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                child: Image.network(movie.posterPath,
-                loadingBuilder: (context, child, loadingProgress) => FadeIn(child: child),),
+                child: Image.network(
+                  movie.posterPath,
+                  loadingBuilder: (context, child, loadingProgress) =>
+                      FadeIn(child: child),
+                ),
               ),
             ),
-            const SizedBox(width: 10,),
-            SizedBox(width: (size.width - 20) * 0.75,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(movie.title, style: textStyle.titleMedium,),
-                Text(movie.overview, maxLines: 3, overflow: TextOverflow.ellipsis,),
-                Row(children: [
-                  Icon(Icons.star_half_rounded, color: Colors.yellow.shade800,),
-                  Text(HumanFormats.number( movie.voteAverage, 1), style: textStyle.bodyMedium,)
-                ],)
-              ],
-            ),)
+            const SizedBox(
+              width: 10,
+            ),
+            SizedBox(
+              width: (size.width - 20) * 0.75,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    movie.title,
+                    style: textStyle.titleMedium,
+                  ),
+                  Text(
+                    movie.overview,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.star_half_rounded,
+                        color: Colors.yellow.shade800,
+                      ),
+                      Text(
+                        HumanFormats.number(movie.voteAverage, 1),
+                        style: textStyle.bodyMedium,
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
           ]),
         ),
       ),
