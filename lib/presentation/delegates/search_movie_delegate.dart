@@ -20,7 +20,15 @@ class SearMovieDelegate extends SearchDelegate<Movie?> {
       _debounceTimer!.cancel();
     }
 
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () { });
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async { 
+      if (query.isEmpty) {
+        debouncedMovies.add([]);
+        return;
+      }
+
+      final movies = await searcheMovies(query);
+      debouncedMovies.add(movies);
+    });
   }
 
   @override
