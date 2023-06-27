@@ -12,11 +12,13 @@ class SearMovieDelegate extends SearchDelegate<Movie?> {
   final SearchMovieCallback searcheMovies;
   List<Movie> initialMovies;
   StreamController<List<Movie>> debouncedMovies = StreamController.broadcast();
+  StreamController<bool> isLoadingStream = StreamController.broadcast();
   Timer? _debounceTimer;
 
   SearMovieDelegate({required this.searcheMovies, required this.initialMovies});
 
   void _onQueryChange(String query) {
+    isLoadingStream.add(true);
     if (_debounceTimer?.isActive ?? false) {
       _debounceTimer!.cancel();
     }
@@ -25,6 +27,7 @@ class SearMovieDelegate extends SearchDelegate<Movie?> {
       final movies = await searcheMovies(query);
       debouncedMovies.add(movies);
       initialMovies = movies;
+      isLoadingStream.add(false);
     });
   }
 
@@ -38,11 +41,28 @@ class SearMovieDelegate extends SearchDelegate<Movie?> {
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
-      FadeIn(
-          duration: const Duration(milliseconds: 200),
-          animate: query.isNotEmpty,
-          child: IconButton(
-              onPressed: () => query = "", icon: const Icon(Icons.clear))),
+      StreamBuilder(
+        stream: isLoadingStream.stream,
+        initialData: false,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          bool isLoading = snapshot.data ?? false;
+
+          return isLoading == true
+              ? SpinPerfect(
+                  duration: const Duration(seconds: 20),
+                  spins: 10,
+                  infinite: true,
+                  child: IconButton(
+                      onPressed: () => query = "",
+                      icon: const Icon(Icons.refresh_rounded)))
+              : FadeIn(
+                  duration: const Duration(milliseconds: 200),
+                  animate: query.isNotEmpty,
+                  child: IconButton(
+                      onPressed: () => query = "",
+                      icon: const Icon(Icons.clear)));
+        },
+      ),
     ];
   }
 
