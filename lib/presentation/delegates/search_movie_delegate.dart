@@ -20,7 +20,7 @@ class SearMovieDelegate extends SearchDelegate<Movie?> {
       _debounceTimer!.cancel();
     }
 
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () async { 
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
       if (query.isEmpty) {
         debouncedMovies.add([]);
         return;
@@ -29,6 +29,10 @@ class SearMovieDelegate extends SearchDelegate<Movie?> {
       final movies = await searcheMovies(query);
       debouncedMovies.add(movies);
     });
+  }
+
+  void clearStreams() {
+    debouncedMovies.close();
   }
 
   @override
@@ -48,7 +52,10 @@ class SearMovieDelegate extends SearchDelegate<Movie?> {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-        onPressed: () => close(context, null),
+        onPressed: () {
+          clearStreams();
+          close(context, null);
+        },
         icon: const Icon(Icons.arrow_back_ios_new_outlined));
   }
 
@@ -59,17 +66,20 @@ class SearMovieDelegate extends SearchDelegate<Movie?> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    _onQueryChange(query);
     return StreamBuilder(
       stream: debouncedMovies.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        _onQueryChange(query);
         final movies = snapshot.data ?? [];
         return ListView.builder(
             itemCount: movies.length,
             itemBuilder: (context, index) {
               return _MovieItem(
                 movie: movies[index],
-                onMovieSelected: close,
+                onMovieSelected: (context, movie) {
+                  clearStreams();
+                  close(context, movie);
+                },
               );
             });
       },
