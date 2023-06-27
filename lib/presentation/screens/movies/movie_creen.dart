@@ -1,8 +1,10 @@
-import 'package:cinemapedia/presentatio/providers/movies/movie_info_provider.dart';
+import 'package:animate_do/animate_do.dart';
+import 'package:cinemapedia/presentation/providers/movies/movie_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/entities/movie.dart';
+import '../../widgets/widgets.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
   static const name = "movie-screen";
@@ -43,7 +45,7 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
           SliverList(
               delegate: SliverChildBuilderDelegate(
                   (context, index) => _MovieDetail(movie: movie),
-                  childCount: 1))
+                  childCount: 1)),
         ],
       ),
     );
@@ -57,7 +59,13 @@ class _MovieDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final textStyles = Theme.of(context).textTheme;
+
+    final decoration = BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(
+              color: Colors.black45, blurRadius: 10, offset: Offset(0, 10))
+        ]);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,17 +87,8 @@ class _MovieDetail extends StatelessWidget {
               ),
               SizedBox(
                 width: (size.width * 0.7) - 30,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      movie.title,
-                      style: textStyles.titleLarge,
-                    ),
-                    Text(
-                      movie.overview,
-                    ),
-                  ],
+                child: ExpandedWidget(
+                  text: movie.overview,
                 ),
               ),
             ],
@@ -114,8 +113,29 @@ class _MovieDetail extends StatelessWidget {
 
 //Todo: mostrar actores
 
+        Padding(
+          padding: const EdgeInsets.only(
+            bottom: 30,
+          ),
+          child: DecoratedBox(
+              decoration: decoration,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    movie.backdropPath,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress != null) {
+                        return const DecoratedBox(
+                            decoration: BoxDecoration(color: Colors.black12));
+                      }
+                      return FadeIn(child: child);
+                    },
+                  ))),
+        ),
+
         const SizedBox(
-          height: 200,
+          height: 100,
         )
       ],
     );

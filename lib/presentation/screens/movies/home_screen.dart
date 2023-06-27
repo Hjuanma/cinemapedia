@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cinemapedia/presentatio/providers/providerts.dart';
-import 'package:cinemapedia/presentatio/widgets/widgets.dart';
+import 'package:cinemapedia/presentation/providers/providerts.dart';
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
 
 import '../../../config/constants/constants.dart';
 
