@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
 
 class CustomGradient extends StatelessWidget {
-  final double startStop, endStop;
+  final List<double> stops;
   final Alignment begin, end;
-  final Color firstColor, secondColor;
+  final List<Color> colors;
   const CustomGradient(
       {super.key,
-      required this.startStop,
-      required this.endStop,
-      required this.end,
-      required this.begin,
-      required this.firstColor,
-      required this.secondColor});
+      this.end = Alignment.centerLeft,
+      this.begin = Alignment.centerRight,
+      required this.stops,
+      required this.colors});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
       child: DecoratedBox(
           decoration: BoxDecoration(
-              gradient: LinearGradient(begin: begin,end: end, stops: [
-        startStop,
-        endStop
-      ], colors: [
-        firstColor,
-        secondColor,
-      ]))),
+              gradient: LinearGradient(
+                  begin: begin, end: end, stops: stops, colors: colors))),
     );
   }
 }

@@ -216,6 +216,15 @@ class _CustomSliverAppBar extends StatelessWidget {
       backgroundColor: Colors.black,
       expandedHeight: size.height * 0.7,
       foregroundColor: Colors.white,
+      actions: [
+        IconButton(
+            onPressed: () {},
+            //icon: Icon(Icons.favorite_outline_rounded))
+            icon: const Icon(
+              Icons.favorite_rounded,
+              color: Colors.red,
+            ))
+      ],
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         title: Text(
@@ -229,30 +238,44 @@ class _CustomSliverAppBar extends StatelessWidget {
               movie.posterPath,
               fit: BoxFit.cover,
               loadingBuilder: (context, child, loadingProgress) {
-                if(loadingProgress != null) return const SizedBox();
+                if (loadingProgress != null) return const SizedBox();
                 return FadeIn(child: child);
               },
             ),
           ),
-          const SizedBox.expand(
-            child: DecoratedBox(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: [0.7, 1.0],
-                        colors: [Colors.transparent, Colors.black87]))),
+
+          ///bottom gradient
+          const CustomGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.75, 1],
+            colors: [Colors.transparent, Colors.black87],
           ),
-          const SizedBox.expand(
-            child: DecoratedBox(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(begin: Alignment.topLeft, stops: [
+
+          ///Top gradient
+          const CustomGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [
               0.0,
-              0.25
-            ], colors: [
-              Colors.black87,
+              0.25,
+            ],
+            colors: [
+              Colors.black54,
               Colors.transparent,
-            ]))),
+            ],
+          ),
+          const CustomGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [
+              0.0,
+              0.25,
+            ],
+            colors: [
+              Colors.black54,
+              Colors.transparent,
+            ],
           ),
         ]),
       ),
