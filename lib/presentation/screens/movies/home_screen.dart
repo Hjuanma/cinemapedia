@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cinemapedia/presentation/widgets/widgets.dart';
 
-import '../../views/views.dart';
-
 class HomeScreen extends StatelessWidget {
   static const name = "home-screen";
 

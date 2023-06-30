@@ -6,7 +6,7 @@ import '../../../providers/providerts.dart';
 import '../../../widgets/widgets.dart';
 
 class HomeView extends ConsumerStatefulWidget {
-  const HomeView();
+  const HomeView({super.key});
 
   @override
   _HomeViewState createState() => _HomeViewState();
