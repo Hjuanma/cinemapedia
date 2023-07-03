@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/entities/actor.dart';
-import '../providerts.dart';
+import '../providers.dart';
 
 final actorsByMovieProvider =
     StateNotifierProvider<ActorsByMovieNotifier, Map<String,  List<Actor>>>((ref) {
