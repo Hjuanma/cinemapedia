@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import '../../../config/constants/constants.dart';
 import '../../../domain/entities/movie.dart';
 import '../widgets.dart';
 
@@ -46,6 +47,8 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyles = Theme.of(context).textTheme;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       height: 360,
@@ -63,9 +66,58 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
+              final movie = widget.movies[index];
               return FadeInRight(
-                child: MovieListItem(
-                  movie: widget.movies[index],
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    children: [
+                      MovieListItem(
+                        movie: movie,
+                      ),
+
+                      const SizedBox(
+                        height: 5,
+                      ),
+
+                      //* Title
+                      SizedBox(
+                        width: 150,
+                        child: Text(
+                          movie.title,
+                          maxLines: 2,
+                          style: textStyles.titleMedium,
+                        ),
+                      ),
+                      const Spacer(),
+
+                      //* Rating
+                      SizedBox(
+                        width: 150,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.star_half_outlined,
+                              color: Colors.yellow.shade800,
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              "${movie.voteAverage}",
+                              style: textStyles.bodyMedium
+                                  ?.copyWith(color: Colors.yellow.shade800),
+                            ),
+                            const Spacer(),
+                            Text(
+                              HumanFormats.number(movie.popularity),
+                              style: textStyles.bodySmall,
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               );
             },
