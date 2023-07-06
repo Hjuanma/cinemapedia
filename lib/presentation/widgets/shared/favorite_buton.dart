@@ -22,8 +22,9 @@ class FavoriteBtn extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final isFavoriteFuture = ref.watch(isFavoriteProvider(movie.id));
     return IconButton(
-        onPressed: () {
-          ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
+        onPressed: () async{
+          //ref.read(localStorageRepositoryProvider).toggleFavorite(movie);
+          await ref.read(favoriteMoviesProvider.notifier).toggleFavorite(movie);
           ref.invalidate(isFavoriteProvider(movie.id));
         },
         icon: isFavoriteFuture.when(
