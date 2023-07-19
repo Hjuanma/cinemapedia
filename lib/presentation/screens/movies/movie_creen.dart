@@ -125,9 +125,12 @@ class _MovieDetail extends StatelessWidget {
             ],
           ),
         ),
+        //* Actores
         ActorsByMovie(
           movieId: movie.id.toString(),
         ),
+        //* Peliculas similares
+        SimilarMovies(movieId: movie.id ),
         DecoratedBox(
             decoration: decoration,
             child: Image.network(

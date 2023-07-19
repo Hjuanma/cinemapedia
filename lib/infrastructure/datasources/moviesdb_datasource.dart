@@ -81,7 +81,7 @@ class MoviedbDatasource extends MoviesDatasource {
   }
 
   @override
-  Future<List<Movie>> getSimilarMovies(String movieId) async {
+  Future<List<Movie>> getSimilarMovies(int movieId) async {
     final response =
         await dio.get('${TheMoviesDB.movie}$movieId${TheMoviesDB.similar}');
     return _jsonToMovie(response.data);
