@@ -11,3 +11,4 @@ export 'shared/custom_gradient.dart';
 export 'shared/expanded_widget.dart';
 export 'shared/favorite_buton.dart';
 export 'shared/full_screen_loader.dart';
+export 'videos/videos_from_movie.dart';

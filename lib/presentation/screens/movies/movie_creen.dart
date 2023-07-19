@@ -112,25 +112,32 @@ class _MovieDetail extends StatelessWidget {
             : const SizedBox(),
         Padding(
           padding: const EdgeInsets.all(8),
-          child: Wrap(
-            children: [
-              ...movie.genreIds.map((gender) => Container(
-                    margin: const EdgeInsets.only(right: 10),
-                    child: Chip(
-                      label: Text(gender),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                    ),
-                  ))
-            ],
+          child: SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: WrapAlignment.center,
+              children: [
+                ...movie.genreIds.map((gender) => Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: Chip(
+                        label: Text(gender),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
+                    ))
+              ],
+            ),
           ),
         ),
         //* Actores
         ActorsByMovie(
           movieId: movie.id.toString(),
         ),
+        //* Videos de la película (si tiene)
+        VideosFromMovie(movieId: movie.id),
         //* Peliculas similares
-        SimilarMovies(movieId: movie.id ),
+        SimilarMovies(movieId: movie.id),
         DecoratedBox(
             decoration: decoration,
             child: Image.network(
