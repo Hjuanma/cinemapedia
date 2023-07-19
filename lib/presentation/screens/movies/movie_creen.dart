@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cinemapedia/presentation/providers/movies/movie_info_provider.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
 
+import '../../../config/constants/constants.dart';
 import '../../../domain/entities/movie.dart';
 import '../../widgets/widgets.dart';
 
@@ -96,6 +97,19 @@ class _MovieDetail extends StatelessWidget {
             ],
           ),
         ),
+        movie.releaseDate != null
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text('Estreno:',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(width: 5),
+                    Text(HumanFormats.shortDate(movie.releaseDate!))
+                  ],
+                ))
+            : const SizedBox(),
         Padding(
           padding: const EdgeInsets.all(8),
           child: Wrap(
@@ -114,33 +128,24 @@ class _MovieDetail extends StatelessWidget {
         ActorsByMovie(
           movieId: movie.id,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 8,
-          ),
-          child: DecoratedBox(
-              decoration: decoration,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    movie.backdropPath,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress != null) {
-                        return const DecoratedBox(
-                            decoration: BoxDecoration(color: Colors.black12));
-                      }
-                      return FadeIn(child: child);
-                    },
-                  ))),
-        ),
-        const SizedBox(
-          height: 50,
-        )
+        DecoratedBox(
+            decoration: decoration,
+            child: Image.network(
+              movie.backdropPath,
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress != null) {
+                  return const DecoratedBox(
+                      decoration: BoxDecoration(color: Colors.black12));
+                }
+                return FadeIn(child: child);
+              },
+            )),
       ],
     );
   }
 }
+
 class _CustomSliverAppBar extends ConsumerWidget {
   final Movie movie;
   const _CustomSliverAppBar({required this.movie});
@@ -149,14 +154,11 @@ class _CustomSliverAppBar extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final size = MediaQuery.of(context).size;
 
-
     return SliverAppBar(
       backgroundColor: Colors.black,
       expandedHeight: size.height * 0.7,
       foregroundColor: Colors.white,
-      actions: [
-        FavoriteBtn(movie: movie)
-      ],
+      actions: [FavoriteBtn(movie: movie)],
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         title: Text(
@@ -214,5 +216,3 @@ class _CustomSliverAppBar extends ConsumerWidget {
     );
   }
 }
-
-
