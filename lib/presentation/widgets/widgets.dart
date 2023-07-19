@@ -1,7 +1,9 @@
+export 'actors/actors_by_movie.dart';
 export 'movies/movie_list_item.dart';
 export 'movies/movie_masonry.dart';
 export 'movies/movies_horizontal_listview.dart';
 export 'movies/movies_slideshow.dart';
+export 'shared/custom_animated_nav_bar.dart';
 export 'shared/custom_appbar.dart';
 export 'shared/custom_bottom_navigation.dart';
 export 'shared/custom_gradient.dart';
