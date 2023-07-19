@@ -104,7 +104,7 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
                               width: 4,
                             ),
                             Text(
-                              "${movie.voteAverage}",
+                              HumanFormats.number(movie.voteAverage, 1),
                               style: textStyles.bodyMedium
                                   ?.copyWith(color: Colors.yellow.shade800),
                             ),
