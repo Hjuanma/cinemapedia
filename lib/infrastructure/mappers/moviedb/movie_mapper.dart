@@ -1,6 +1,7 @@
-import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/infrastructure/models/moviedb/movie_moviedb.dart';
 import 'package:cinemapedia/infrastructure/models/moviedb/moviedb_details.dart';
+
+import '../../../domain/entities/entities.dart';
 
 class MovieMapper {
   static Movie movieDBToEntity(MovieMovieDb moviedb) => Movie(

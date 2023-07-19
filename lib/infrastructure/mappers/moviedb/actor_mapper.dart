@@ -1,4 +1,4 @@
-import '../../../domain/entities/actor.dart';
+import '../../../domain/entities/entities.dart';
 import '../../models/moviedb/credits_response.dart';
 
 class ActorMapper {

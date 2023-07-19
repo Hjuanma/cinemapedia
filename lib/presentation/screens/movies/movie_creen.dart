@@ -5,7 +5,7 @@ import 'package:cinemapedia/presentation/providers/movies/movie_info_provider.da
 import 'package:cinemapedia/presentation/providers/providers.dart';
 
 import '../../../config/constants/constants.dart';
-import '../../../domain/entities/movie.dart';
+import '../../../domain/entities/entities.dart';
 import '../../widgets/widgets.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {

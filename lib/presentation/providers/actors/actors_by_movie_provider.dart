@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/entities/actor.dart';
+import '../../../domain/entities/entities.dart';
 import '../providers.dart';
 
 final actorsByMovieProvider =

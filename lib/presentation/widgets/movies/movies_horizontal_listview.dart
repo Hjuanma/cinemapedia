@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import '../../../config/constants/constants.dart';
-import '../../../domain/entities/movie.dart';
+import '../../../domain/entities/entities.dart';
 import '../widgets.dart';
 
 class MoviesHorizontalListview extends StatefulWidget {
