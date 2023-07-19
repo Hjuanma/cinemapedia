@@ -126,7 +126,7 @@ class _MovieDetail extends StatelessWidget {
           ),
         ),
         ActorsByMovie(
-          movieId: movie.id,
+          movieId: movie.id.toString(),
         ),
         DecoratedBox(
             decoration: decoration,
