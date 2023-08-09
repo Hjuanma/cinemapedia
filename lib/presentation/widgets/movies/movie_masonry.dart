@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../../../domain/entities/movie.dart';
+import '../../../domain/entities/entities.dart';
 import '../widgets.dart';
 
 class MovieMasonry extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import '../../../config/constants/constants.dart';
-import '../../../domain/entities/movie.dart';
+import '../../../domain/entities/entities.dart';
 import '../widgets.dart';
 
 class MoviesHorizontalListview extends StatefulWidget {
@@ -104,7 +104,7 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
                               width: 4,
                             ),
                             Text(
-                              "${movie.voteAverage}",
+                              HumanFormats.number(movie.voteAverage, 1),
                               style: textStyles.bodyMedium
                                   ?.copyWith(color: Colors.yellow.shade800),
                             ),

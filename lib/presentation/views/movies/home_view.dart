@@ -75,7 +75,7 @@ class HomeViewState extends ConsumerState<HomeView> {
                   ref.read(topRatedProvider.notifier).loadNextPage(),
             ),
             const SizedBox(
-              height: 10,
+              height:120,
             )
           ],
         );
